@@ -1,0 +1,37 @@
+[package]
+name = "embedded-svc"
+version = "0.28.0"
+authors = ["Ivan Markov <ivan.markov@gmail.com>"]
+edition = "2021"
+resolver = "2"
+categories = ["embedded", "hardware-support"]
+keywords = ["embedded", "svc", "hal"]
+description = "A set of traits for services higher level than embedded-hal and typically found in embedded microcontrollers with WiFi or BLE support."
+repository = "https://github.com/esp-rs/embedded-svc"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+rust-version = "1.77"
+
+[features]
+default = ["std", "use_serde", "use_strum", "use_numenum", "log"]
+
+std = ["alloc", "embedded-io/std", "embedded-io-async/std", "serde/std", "strum?/std", "num_enum?/std"]
+alloc = ["embedded-io/alloc", "embedded-io-async/alloc", "serde/alloc", "defmt?/alloc"]
+nightly = []
+experimental = []
+use_serde = ["dep:serde", "enumset/serde", "heapless/serde"]
+use_strum = ["strum", "strum_macros"]
+use_numenum = ["num_enum"]
+defmt = ["dep:defmt", "heapless/defmt-03", "embedded-io/defmt-03", "embedded-io-async/defmt-03"]
+
+[dependencies]
+heapless = { version = "0.8" }
+embedded-io = { version = "0.6", default-features = false }
+embedded-io-async = { version = "0.6", default-features = false }
+log = { version = "0.4", default-features = false, optional = true }
+serde = { version = "1", default-features = false, features = ["derive"], optional = true }
+enumset = { version = "1", default-features = false }
+strum = { version = "0.25", default-features = false, optional = true, features = ["derive"] }
+strum_macros = { version = "0.25", optional = true }
+num_enum = { version = "0.7", default-features = false, optional = true }
+defmt = { version = "0.3", optional = true }
